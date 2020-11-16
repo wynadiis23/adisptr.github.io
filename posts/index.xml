@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on adi saputra&#39;s log</title>
-    <link>https://adisptr.github.io/posts/</link>
+    <link>https://wynadiis23.github.io/posts/</link>
     <description>Recent content in Posts on adi saputra&#39;s log</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Nov 2020 04:56:37 +0800</lastBuildDate><atom:link href="https://adisptr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Nov 2020 04:56:37 +0800</lastBuildDate><atom:link href="https://wynadiis23.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Membuat EC2 Instance</title>
-      <link>https://adisptr.github.io/posts/2020-11-16-membuat-ec2-instance/</link>
+      <link>https://wynadiis23.github.io/posts/2020-11-16-membuat-ec2-instance/</link>
       <pubDate>Mon, 16 Nov 2020 04:56:37 +0800</pubDate>
       
-      <guid>https://adisptr.github.io/posts/2020-11-16-membuat-ec2-instance/</guid>
+      <guid>https://wynadiis23.github.io/posts/2020-11-16-membuat-ec2-instance/</guid>
       <description>AWS EC2 atau Elastic Compute merupakan salah satu service dari AWS yang memberikan akses pengguna untuk membuat virtual machine pada cloud, pada service AWS ini disebut dengan instance. AWS memberikan banyak sekali opsi mulai dari yang gratis atau free tier hingga akses terhadap instance yang berbayar. AWS juga memberikan pilihan yang luas terkait jenis spek yang akan digunakan pada instance EC2.
 Prerequisite dan Tujuan Oh iya tentu, pertama yang harus anda punya untuk akses ke AWS service ya AWS account.</description>
     </item>
     
     <item>
       <title>Initial Post</title>
-      <link>https://adisptr.github.io/posts/2020-06-06-initial-post/</link>
+      <link>https://wynadiis23.github.io/posts/2020-06-06-initial-post/</link>
       <pubDate>Sat, 07 Nov 2020 07:24:08 +0800</pubDate>
       
-      <guid>https://adisptr.github.io/posts/2020-06-06-initial-post/</guid>
+      <guid>https://wynadiis23.github.io/posts/2020-06-06-initial-post/</guid>
       <description>tes tes initial post.
 coba enter
 coba sub coba coba coba
