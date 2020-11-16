@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>initial on adi saputra&#39;s log</title>
+    <link>http://example.org/tags/initial/</link>
+    <description>Recent content in initial on adi saputra&#39;s log</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 07 Nov 2020 07:24:08 +0800</lastBuildDate><atom:link href="http://example.org/tags/initial/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Initial Post</title>
+      <link>http://example.org/posts/2020-06-06-initial-post/</link>
+      <pubDate>Sat, 07 Nov 2020 07:24:08 +0800</pubDate>
+      
+      <guid>http://example.org/posts/2020-06-06-initial-post/</guid>
+      <description>tes tes initial post.
+coba enter
+coba sub coba coba coba
+coba list ini list:
+ Ambil Taruh  Coba heading ya ini heading 1
+Heading 2 Heading 3 dst Test2 Typography bold garis miring
+ini link
+ini code block()
+print &amp;lsquo;this is pre tag&amp;rsquo;
+phpinfo()  &amp;lsquo;I want to do with you what spring does with the cherry trees.&amp;rsquo; cited ~Pablo Neruda ordered list:
+ mamang garox  unordered list:</description>
+    </item>
+    
+  </channel>
+</rss>

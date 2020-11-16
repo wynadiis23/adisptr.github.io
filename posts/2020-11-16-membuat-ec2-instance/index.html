@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+<header id="header">
+  <a href="http://example.org/">
+  
+    <div id="logo" style="background-image: url(http://example.org/images/logo.png)"></div>
+  
+  <div id="title">
+    <h1>adi saputra&#39;s log</h1>
+  </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/posts">All posts</a></li>
+      
+        <li><a href="/tags">Tags</a></li>
+      
+        <li><a href="/about">About</a></li>
+      
+    </ul>
+  </div>
+</header>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title> Membuat EC2 Instance | adi saputra&#39;s log</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta property="og:title" content="Membuat EC2 Instance" />
+<meta property="og:description" content="AWS EC2 atau Elastic Compute merupakan salah satu service dari AWS yang memberikan akses pengguna untuk membuat virtual machine pada cloud, pada service AWS ini disebut dengan instance. AWS memberikan banyak sekali opsi mulai dari yang gratis atau free tier hingga akses terhadap instance yang berbayar. AWS juga memberikan pilihan yang luas terkait jenis spek yang akan digunakan pada instance EC2.
+Prerequisite dan Tujuan Oh iya tentu, pertama yang harus anda punya untuk akses ke AWS service ya AWS account." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/2020-11-16-membuat-ec2-instance/" />
+<meta property="article:published_time" content="2020-11-16T04:56:37+08:00" />
+<meta property="article:modified_time" content="2020-11-16T04:56:37+08:00" />
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Membuat EC2 Instance"/>
+<meta name="twitter:description" content="AWS EC2 atau Elastic Compute merupakan salah satu service dari AWS yang memberikan akses pengguna untuk membuat virtual machine pada cloud, pada service AWS ini disebut dengan instance. AWS memberikan banyak sekali opsi mulai dari yang gratis atau free tier hingga akses terhadap instance yang berbayar. AWS juga memberikan pilihan yang luas terkait jenis spek yang akan digunakan pada instance EC2.
+Prerequisite dan Tujuan Oh iya tentu, pertama yang harus anda punya untuk akses ke AWS service ya AWS account."/>
+
+  
+  
+    
+  
+  
+  <link rel="stylesheet" href="http://example.org/css/style-white.css">
+  
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+
+  
+<link rel="icon" type="image/png" href="http://example.org/images/favicon.ico" />
+
+  
+  
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+  
+  <div class="content index py4">
+
+  <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+        <li><a href="/">Home</a></li>
+         
+        <li><a href="/posts">All posts</a></li>
+         
+        <li><a href="/tags">Tags</a></li>
+         
+        <li><a href="/about">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li>
+          <a class="icon" href=" http://example.org/posts/2020-06-06-initial-post/">
+            <i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i>
+          </a>
+        </li>
+        
+        
+        <li>
+          <a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');">
+            <i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i>
+          </a>
+        </li>
+        <li>
+          <a class="icon" href="#">
+            <i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i>
+          </a>
+        </li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f">
+      <i class="fab fa-facebook " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&text=Membuat%20EC2%20Instance">
+      <i class="fab fa-twitter " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&title=Membuat%20EC2%20Instance">
+      <i class="fab fa-linkedin " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&is_video=false&description=Membuat%20EC2%20Instance">
+      <i class="fab fa-pinterest " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=Membuat%20EC2%20Instance&body=Check out this article: http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f">
+      <i class="fas fa-envelope " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&title=Membuat%20EC2%20Instance">
+      <i class="fab fa-get-pocket " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&title=Membuat%20EC2%20Instance">
+      <i class="fab fa-reddit " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&title=Membuat%20EC2%20Instance">
+      <i class="fab fa-stumbleupon " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://digg.com/submit?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&title=Membuat%20EC2%20Instance">
+      <i class="fab fa-digg " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&name=Membuat%20EC2%20Instance&description=AWS%20EC2%20atau%20Elastic%20Compute%20merupakan%20salah%20satu%20service%20dari%20AWS%20yang%20memberikan%20akses%20pengguna%20untuk%20membuat%20virtual%20machine%20pada%20cloud%2c%20pada%20service%20AWS%20ini%20disebut%20dengan%20instance.%20AWS%20memberikan%20banyak%20sekali%20opsi%20mulai%20dari%20yang%20gratis%20atau%20free%20tier%20hingga%20akses%20terhadap%20instance%20yang%20berbayar.%20AWS%20juga%20memberikan%20pilihan%20yang%20luas%20terkait%20jenis%20spek%20yang%20akan%20digunakan%20pada%20instance%20EC2.%0aPrerequisite%20dan%20Tujuan%20Oh%20iya%20tentu%2c%20pertama%20yang%20harus%20anda%20punya%20untuk%20akses%20ke%20AWS%20service%20ya%20AWS%20account.">
+      <i class="fab fa-tumblr " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&t=Membuat%20EC2%20Instance">
+      <i class="fab fa-hacker-news " aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#prerequisite-dan-tujuan">Prerequisite dan Tujuan</a></li>
+    <li><a href="#login-ke-aws">Login ke AWS</a></li>
+    <li><a href="#aws-management-console">AWS Management Console</a>
+      <ul>
+        <li><a href="#ec2-dashboard">EC2 Dashboard</a></li>
+        <li><a href="#pilih-os">Pilih OS</a></li>
+        <li><a href="#konfigurasi-tipe-instance">Konfigurasi Tipe Instance</a></li>
+        <li><a href="#konfigurasi-detail-instance">Konfigurasi Detail Instance</a></li>
+        <li><a href="#konfigurasi-storage">Konfigurasi Storage</a></li>
+        <li><a href="#tags">Tags</a></li>
+        <li><a href="#konfigurasi-security-group">Konfigurasi Security Group</a></li>
+        <li><a href="#review-and-launch">Review and Launch</a></li>
+      </ul>
+    </li>
+    <li><a href="#remote-ssh-ke-instance">Remote SSH ke Instance</a>
+      <ul>
+        <li><a href="#jika-error-ssh">Jika error SSH</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+  </span>
+</div>
+
+
+  <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+      <h1 class="posttitle" itemprop="name headline">
+        Membuat EC2 Instance
+      </h1>
+      <div class="meta">
+        
+        <div class="postdate">
+          
+          <time datetime="2020-11-16 04:56:37 &#43;0800 WITA" itemprop="datePublished">2020-11-16</time>
+          
+        </div>
+        
+        
+        <div class="article-tag">
+            <i class="fas fa-tag"></i>
+            
+            
+            <a class="tag-link" href="/tags/aws" rel="tag">aws</a>
+            
+             ,  
+            <a class="tag-link" href="/tags/ec2" rel="tag">ec2</a>
+            
+             ,  
+            <a class="tag-link" href="/tags/cloud" rel="tag">cloud</a>
+            
+        </div>
+        
+      </div>
+    </header>
+
+  
+    <div class="content" itemprop="articleBody">
+      <p>AWS EC2 atau Elastic Compute merupakan salah satu service dari AWS yang memberikan akses pengguna untuk membuat <em>virtual machine</em> pada <em>cloud</em>, pada service AWS ini disebut dengan <em>instance</em>. AWS memberikan banyak sekali opsi mulai dari yang gratis atau <em>free tier</em> hingga akses terhadap instance yang berbayar. AWS juga memberikan pilihan yang luas terkait jenis spek yang akan digunakan pada instance EC2.</p>
+<h2 id="prerequisite-dan-tujuan">Prerequisite dan Tujuan</h2>
+<p>Oh iya tentu, pertama yang harus anda punya untuk akses ke AWS service ya <em><strong>AWS account</strong></em>. Buat saja dengan mendaftarkan kartu kredit anda, kemudian akses service yang <em>free tier</em> sehingga anda tidak dikenakan charge karena <em>free tier</em>.</p>
+<p>Yang harus anda punya:</p>
+<ul>
+<li>Akses internet</li>
+<li>AWS Account baik itu AWS Educate atau AWS yang anda bikin pakai kartu kredit tadi.</li>
+</ul>
+<p>Yang ingin kita capai di artikel ini adalah:</p>
+<ul>
+<li>Bikin EC2 Instance dengan Linux Based (AWS AMI, Ubuntu server, atau CentOS) yang free tier ehe.</li>
+<li>Bisa manage lewat remote SSH</li>
+</ul>
+<h2 id="login-ke-aws">Login ke AWS</h2>
+<p>Sebagai pengguna AWS Educate, saya login lewat <a href="https://www.awseducate.com/signin/SiteLogin">sini</a>. Jika anda bukan pengguna service AWS Educate dan baru buat akun AWS, kemungkinan anda harus login lewat <a href="https://aws.amazon.com/console/">sini</a>.
+Setelah anda login, anda akan masuk ke bagian <em><strong>management console</strong></em>. Dari sini kita bisa mulai untuk menggunakan service-service yang disediakan oleh AWS.</p>
+<figure>
+    <img src="/post_images/aws_educatelogin.png"/> <figcaption>
+            <h4>AWS Educate login page</h4>
+        </figcaption>
+</figure>
+
+<p>atau</p>
+<figure>
+    <img src="/post_images/aws_managementconsolebayarlogin.png"/> <figcaption>
+            <h4>AWS Management Console Login IAM atau Root Account</h4>
+        </figcaption>
+</figure>
+
+<h2 id="aws-management-console">AWS Management Console</h2>
+<p>AWS Management Console ini merupakan inti dari AWS Services. Dari sini kita bisa akses ke hampir semua service AWS. Kita bisa cari dengan memasukan kata kunci service pada kolom <em>find service</em> atau kita <em>expand</em> bagian <em><strong>All Service</strong></em> untuk melihat semua service yang ada.</p>
+<p>Jika kita lihat pada pojok kanan atas, disana tertulis informasi dari akun kita, region yang sedang kita gunakan, dan bagian support. Jika kita ingin berpindah ke region lain, maka <em>expand</em> dropdown region diatas, kemudian ganti ke region yang kita inginkan.</p>
+<p><em><strong>Ingat</strong></em> setiap region mempunyai harga atau tarif yang berbeda untuk setiap service yang digunakan.</p>
+<figure>
+    <img src="/post_images/aws_mconsole.png"/> <figcaption>
+            <h4>AWS Management Console</h4>
+        </figcaption>
+</figure>
+
+<p>Dari sini kita bisa mulai capai tujuan kita pada artikel ini. Pada bagian <em>find service</em> kalian ketik <code>EC2</code> atau expand dan cari EC2, EC2 akan berada pada section <em><strong>Compute</strong></em>.</p>
+<figure>
+    <img src="/post_images/aws_computesection.png"/> <figcaption>
+            <h4>Compute Section</h4>
+        </figcaption>
+</figure>
+
+<h3 id="ec2-dashboard">EC2 Dashboard</h3>
+<p>Dashboard ini memberikan informasi terkait EC2 pada akun dan region AWS kita. Memperlihatkan jumlah instance yang berjalan, jumlah <em>key pair</em>, <em>load balancer, security group</em> dan lain-lain.
+Karena tujuan kita kali ini hanya membuat EC2 instance, jadi langsung saja klik <strong>Launch Instance</strong>.</p>
+<figure>
+    <img src="/post_images/aws_ec2dashboard.png"/> <figcaption>
+            <h4>AWS EC2 Dashboard</h4>
+        </figcaption>
+</figure>
+
+<h3 id="pilih-os">Pilih OS</h3>
+<p>Pilih OS atau sistem operasi yang akan kita gunakan pada instance. Kita pilih <strong>Ubuntu Server 20.04</strong> ya. Penjelasan jenis os lain kali mungkin akan saya buat.
+Oh iya, jangan lupa centang check box <em><strong>free tier</strong></em> yang ada disebelah kiri ya. Agar OS yang muncul yang gratis-gratis. Kalau sudah klik <strong>Select</strong>.</p>
+<p>Lanjooot</p>
+<figure>
+    <img src="/post_images/aws_ec2chooseami.png"/> <figcaption>
+            <h4>OS EC2 Instance</h4>
+        </figcaption>
+</figure>
+
+<h3 id="konfigurasi-tipe-instance">Konfigurasi Tipe Instance</h3>
+<p>Konfigurasi instance tipe ini meliputi jumlah virtual CPU, ukuran memory, jenis instance storage, dan jaringan. Tipe instance ini juga sudah dikelompokan oleh AWS untuk tujuan-tujuan tertentu misalnya ketika keperluan memerlukan kebutuhan komputasi yang tinggi, maka jenis instance tipe yang digunakan pun sudah ada rekomendasi dari AWS. Mungkin akan dijelaskan di artikel terpisah saja ya.</p>
+<p>Lanjooot</p>
+<figure>
+    <img src="/post_images/aws_ec2instancetype.png"/> <figcaption>
+            <h4>Tipe Instance</h4>
+        </figcaption>
+</figure>
+
+<h3 id="konfigurasi-detail-instance">Konfigurasi Detail Instance</h3>
+<p>Konfigurasi detail instance ini meliputi berapa julmah instance yang akan dibuat, topologi network atau VPC yang digunakan, subnet dan lainnya. Hal menarik lainnya adalah kita bisa menginisialisasikan <strong>User Data</strong>.</p>
+<figure>
+    <img src="/post_images/aws_ec2coninstdet.png"/> <figcaption>
+            <h4>Konfigurasi Instance Detail</h4>
+        </figcaption>
+</figure>
+
+<p>User data ini merupakan script kode yang dapat disertakan pada proses pembuatan instance yang akan dijalankan ketika pertama kali instance dihidupkan atau ketika proses launch. Misalnya kita ingin membuat instance untuk web server, maka bisa kita inisialisasikan script untuk instalasi dan konfigurasi web server pada bagian user data ini, sehingga ketika instance sudah dijadi, akan langsung terinstall web server. Akan dibuat di artikel tersendiri saja mungkin.</p>
+<p>Lanjooot</p>
+<figure>
+    <img src="/post_images/aws_ec2usrdata.png"/> <figcaption>
+            <h4>User data instance</h4>
+        </figcaption>
+</figure>
+
+<h3 id="konfigurasi-storage">Konfigurasi Storage</h3>
+<p>Ini meliputi ukuran dan jenis dari storage yang akan digunakan pada instance. SSD ataupun HDD pada <em>volume types</em>.</p>
+<p>Lanjooot saja ke <em><strong>Tags</strong></em>.</p>
+<figure>
+    <img src="/post_images/aws_ec2addstorage.png"/> <figcaption>
+            <h4>Konfigurasi Storage EC2</h4>
+        </figcaption>
+</figure>
+
+<h3 id="tags">Tags</h3>
+<p>Tags memberikan kemudahan pada kita untuk menandai instance EC2 kita. Misalnya untuk kebutuhan proyek a kita bisa inisialisasikan tags proyek ke a, maka semuainstance yang menggunakan tags a akan dengan mudah kita temukan nantinya.</p>
+<p>Pada artikel ini isikan Tags <code>Name</code> dengan <code>ec2_belajar</code>.</p>
+<p>Lanjooot bosku</p>
+<figure>
+    <img src="/post_images/aws_ec2tags.png"/> <figcaption>
+            <h4>Tags</h4>
+        </figcaption>
+</figure>
+
+<h3 id="konfigurasi-security-group">Konfigurasi Security Group</h3>
+<p>Salah satu elemen terpenting dari servicenya AWS. <em><strong>Security Group</strong></em> berperan kayak <em><strong>firewall</strong></em>, disini kita akan mendeklarasikan koneksi apa saja yang bisa masuk (<em>inbound</em>) dan keluar (<em>outbound</em>) dari instance EC2 kita.
+Karena kebutuhan pada artikel ini hanya untuk remote SSH, jadi isikan <code>Type</code> <code>SSH</code> aja pada kemudian source <code>custom</code> dari ip mana saja. Penjelasan mengenai security group mungkin akan perlu artikel tersendri ya.</p>
+<p>Lanjoot mang.</p>
+<figure>
+    <img src="/post_images/aws_ec2confsecgr.png"/> <figcaption>
+            <h4>Konfigurasi EC2 Security Group</h4>
+        </figcaption>
+</figure>
+
+<h3 id="review-and-launch">Review and Launch</h3>
+<p>Nah jika sudah sampai sini, instance yang tadi kita siapkan artinya sudah tinggal dilaunch aja. Klik <strong>View Instances</strong> lanjoooooot.</p>
+<figure>
+    <img src="/post_images/aws_ec2launchstatus.png"/> <figcaption>
+            <h4>Launch Status</h4>
+        </figcaption>
+</figure>
+
+<h4 id="key-pair">Key Pair</h4>
+<p>Bagian penting agar kita bisa remote SSH atau RDP ke instance yang kita bikin adalah ini, <strong>Key Pair</strong>. Key Pair ini fungsinya mirip password atau key exchange antara instance kita dengan remote device kita. Ini sangat penting, pastikan instance yang kita bikin sudah terikat dengan salah satu Key Pair ya.</p>
+<p>Karena ini instance baru, jadi kita create Key Pair, kemudian jangan lupa download ya Key Pair-nya bentukannya <strong>.pem</strong>. Kemudian <em><strong>Launch INstance</strong></em>.</p>
+<figure>
+    <img src="/post_images/aws_ec2keypair.png"/> <figcaption>
+            <h4>EC2 instance Key Pair</h4>
+        </figcaption>
+</figure>
+
+<h2 id="remote-ssh-ke-instance">Remote SSH ke Instance</h2>
+<p>Hal yang perlu dilakukan sebelum kita remote SSH atau RDP ke instance yang kita buat tadi.</p>
+<ul>
+<li>pastikan, pastikan kita sudah download key pair dari instance yang kita buat tadi, kalau belum atuh modyar.</li>
+<li>SSH atau RDP client. Kita bisa gunakan Putty untuk windows, atau saya di Linux lewat terminal saja.</li>
+<li>IP Publik dari instance kita. ini bisa kita dapat lewat instance detail seperti dibawah sini. atau di baris instance yang akan kita remote.
+<figure>
+    <img src="/post_images/aws_ec2publicIP.png"/> <figcaption>
+            <h4>EC2 IP Publik</h4>
+        </figcaption>
+</figure>
+</li>
+</ul>
+<p>Oke kalau sudah kita tinggal remote saja. berikut commandnya untuk di terminal Linux.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh -i &lt;path dari file .pem&gt; &lt;username instance&gt;@&lt;ip publik instance&gt;
+</code></pre></div><ul>
+<li>username dari instance adalah <code>ubuntu</code>.</li>
+</ul>
+<p>Kemudian ketika command berhasil dijalankan maka kita akan masuk ke terminal dari instance kita. Berikut contohnya.</p>
+<figure>
+    <img src="/post_images/aws_remotesshberhasil.png"/> <figcaption>
+            <h4>AWS remote SSH</h4>
+        </figcaption>
+</figure>
+
+<p>Jika sudah maka silahkan lakukan eksperimen pada instance yang telah kita bangun. Selanjutnya mungkin kita akan coba konfigurasi instance tersebut jadi Web Server kali ya.</p>
+<p><em><strong>Oh iya jangan lupa, kalau instancenya sudah tidak digunakan, dimatikan ya, agar tidak makan charge atau kredit. Ini yang terjadi di akun educate sih, saya belum coba di akun IAM atau Root.</strong></em></p>
+<p><strong>Cara matiinnya klik kanan instance &gt; instance state &gt; stop</strong></p>
+<p>Okay Dada.</p>
+<h3 id="jika-error-ssh">Jika error SSH</h3>
+<p>Jika error seperti ini terjadi</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">The authenticity of host <span style="color:#e6db74">&#39;3.93.185.159 (3.93.185.159)&#39;</span> can<span style="color:#e6db74">&#39;t be established.
+</span><span style="color:#e6db74">ECDSA key fingerprint is SHA256:vwJdjbAfXXTvU+crF/pk//XmT48WGoNFg+UXwWZX99g.
+</span><span style="color:#e6db74">Are you sure you want to continue connecting (yes/no)? yes
+</span><span style="color:#e6db74">Warning: Permanently added &#39;</span>3.93.185.159<span style="color:#e6db74">&#39; (ECDSA) to the list of known hosts.
+</span><span style="color:#e6db74">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+</span><span style="color:#e6db74">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
+</span><span style="color:#e6db74">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+</span><span style="color:#e6db74">Permissions 0664 for &#39;</span>ec2_belajar.pem<span style="color:#960050;background-color:#1e0010">&#39;</span> are too open.
+It is required that your private key files are NOT accessible by others.
+This private key will be ignored.
+Load key <span style="color:#e6db74">&#34;ec2_belajar.pem&#34;</span>: bad permissions
+ubuntu@3.93.185.159: Permission denied <span style="color:#f92672">(</span>publickey<span style="color:#f92672">)</span>.
+</code></pre></div><p>Maka bisa kalian coba untuk ubah permission untuk file <strong>.pem</strong>-nya.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo chmod <span style="color:#ae81ff">600</span> ec2_belajar.pem
+</code></pre></div>
+    </div>
+  </article>
+
+  
+  
+
+
+
+
+  
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+          <script type="text/javascript">
+          
+          (function() {
+              
+              
+              
+              
+          
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              var disqus_shortname = 'adi saputra\u0027s log';
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </div>
+
+  
+
+
+  <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/posts">All posts</a></li>
+         
+          <li><a href="/tags">Tags</a></li>
+         
+          <li><a href="/about">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#prerequisite-dan-tujuan">Prerequisite dan Tujuan</a></li>
+    <li><a href="#login-ke-aws">Login ke AWS</a></li>
+    <li><a href="#aws-management-console">AWS Management Console</a>
+      <ul>
+        <li><a href="#ec2-dashboard">EC2 Dashboard</a></li>
+        <li><a href="#pilih-os">Pilih OS</a></li>
+        <li><a href="#konfigurasi-tipe-instance">Konfigurasi Tipe Instance</a></li>
+        <li><a href="#konfigurasi-detail-instance">Konfigurasi Detail Instance</a></li>
+        <li><a href="#konfigurasi-storage">Konfigurasi Storage</a></li>
+        <li><a href="#tags">Tags</a></li>
+        <li><a href="#konfigurasi-security-group">Konfigurasi Security Group</a></li>
+        <li><a href="#review-and-launch">Review and Launch</a></li>
+      </ul>
+    </li>
+    <li><a href="#remote-ssh-ke-instance">Remote SSH ke Instance</a>
+      <ul>
+        <li><a href="#jika-error-ssh">Jika error SSH</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f">
+      <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&text=Membuat%20EC2%20Instance">
+      <i class="fab fa-twitter fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&title=Membuat%20EC2%20Instance">
+      <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&is_video=false&description=Membuat%20EC2%20Instance">
+      <i class="fab fa-pinterest fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=Membuat%20EC2%20Instance&body=Check out this article: http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f">
+      <i class="fas fa-envelope fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&title=Membuat%20EC2%20Instance">
+      <i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&title=Membuat%20EC2%20Instance">
+      <i class="fab fa-reddit fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&title=Membuat%20EC2%20Instance">
+      <i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://digg.com/submit?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&title=Membuat%20EC2%20Instance">
+      <i class="fab fa-digg fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&name=Membuat%20EC2%20Instance&description=AWS%20EC2%20atau%20Elastic%20Compute%20merupakan%20salah%20satu%20service%20dari%20AWS%20yang%20memberikan%20akses%20pengguna%20untuk%20membuat%20virtual%20machine%20pada%20cloud%2c%20pada%20service%20AWS%20ini%20disebut%20dengan%20instance.%20AWS%20memberikan%20banyak%20sekali%20opsi%20mulai%20dari%20yang%20gratis%20atau%20free%20tier%20hingga%20akses%20terhadap%20instance%20yang%20berbayar.%20AWS%20juga%20memberikan%20pilihan%20yang%20luas%20terkait%20jenis%20spek%20yang%20akan%20digunakan%20pada%20instance%20EC2.%0aPrerequisite%20dan%20Tujuan%20Oh%20iya%20tentu%2c%20pertama%20yang%20harus%20anda%20punya%20untuk%20akses%20ke%20AWS%20service%20ya%20AWS%20account.">
+      <i class="fab fa-tumblr fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=http%3a%2f%2fexample.org%2fposts%2f2020-11-16-membuat-ec2-instance%2f&t=Membuat%20EC2%20Instance">
+      <i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;">
+          <i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;">
+          <i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;">
+          <i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');">
+          <i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+
+  <footer id="footer">
+  <div class="footer-left">
+    Copyright  &copy; 2020  adi saputra&#39;s log 
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+        <li><a href="/">Home</a></li>
+         
+        <li><a href="/posts">All posts</a></li>
+         
+        <li><a href="/tags">Tags</a></li>
+         
+        <li><a href="/about">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+
+  </div>
+</body>
+
+<link rel="stylesheet" href=/lib/font-awesome/css/all.min.css>
+<script src=/lib/jquery/jquery.min.js></script>
+<script src=/js/main.js></script>
+
+
+
+</html>
